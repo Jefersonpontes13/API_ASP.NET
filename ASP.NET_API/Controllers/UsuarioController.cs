@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ASP.NET_API.Models;
+using ASP.NET_API.Filters;
 using ASP.NET_API.Models.Usuarios;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -26,15 +27,23 @@ namespace ASP.NET_API.Controllers
         [SwaggerResponse(statusCode: 500, description:"Erro Interno", Type = typeof(ErroGenericoViewModel))]
         [HttpPost]
         [Route("logar")]
+        [ValidacaoModelStateCustomizado]
         public IActionResult Logar(LoginViewModelInput loginViewModelInput)
         {
+            // if (!ModelState.IsValid)
+            // {
+            //     return BadRequest(new ValidaCampoViewModelOutput(
+            //         ModelState.SelectMany(sm => sm.Value.Errors).Select(s => s.ErrorMessage)));
+            // }
             return Ok(loginViewModelInput);
         }
         
         [HttpPost]
         [Route("registrar")]
+        [ValidacaoModelStateCustomizado]
         public IActionResult Registrar(RegistroViewModelInput registroViewModelInput)
         {
+            
             return Created("", registroViewModelInput);
         }
     }
