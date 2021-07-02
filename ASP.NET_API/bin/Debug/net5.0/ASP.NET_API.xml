@@ -6,10 +6,10 @@
     <members>
         <member name="M:ASP.NET_API.Controllers.UsuarioController.Logar(ASP.NET_API.Models.Usuarios.LoginViewModelInput)">
             <sumary>
-            teste
+            Este serviço permite autenticar um usuário cadastrado e ativo.
             </sumary>
-            <param name="loginViewModelInput"></param>
-            <returns></returns>
+            <param name="loginViewModelInput">View Model do Login</param>
+            <returns>retorna Status okm dados do usuário e o token em caso de sucesso</returns>
         </member>
     </members>
 </doc>

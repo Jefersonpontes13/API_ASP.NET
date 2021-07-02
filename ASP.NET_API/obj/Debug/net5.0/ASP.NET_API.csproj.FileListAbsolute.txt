@@ -28,3 +28,4 @@ C:\Users\jeffe\RiderProjects\ASP.NET_API\ASP.NET_API\obj\Debug\net5.0\ref\ASP.NE
 C:\Users\jeffe\RiderProjects\ASP.NET_API\ASP.NET_API\obj\Debug\net5.0\ASP.NET_API.pdb
 C:\Users\jeffe\RiderProjects\ASP.NET_API\ASP.NET_API\obj\Debug\net5.0\ASP.NET_API.genruntimeconfig.cache
 C:\Users\jeffe\RiderProjects\ASP.NET_API\ASP.NET_API\bin\Debug\net5.0\ASP.NET_API.xml
+C:\Users\jeffe\RiderProjects\ASP.NET_API\ASP.NET_API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Annotations.dll
