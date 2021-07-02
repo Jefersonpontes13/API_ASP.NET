@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ASP.NET_API</name>
+    </assembly>
+    <members>
+        <member name="M:ASP.NET_API.Controllers.UsuarioController.Logar(ASP.NET_API.Models.Usuarios.LoginViewModelInput)">
+            <sumary>
+            teste
+            </sumary>
+            <param name="loginViewModelInput"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
