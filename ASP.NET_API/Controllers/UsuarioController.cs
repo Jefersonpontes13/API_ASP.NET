@@ -1,50 +1,127 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ASP.NET_API.Models;
+﻿using ASP.NET_API.Business.Entities;
+using ASP.NET_API.Business.Repositories;
+using ASP.NET_API.Configurations;
 using ASP.NET_API.Filters;
+using ASP.NET_API.Models;
 using ASP.NET_API.Models.Usuarios;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Threading.Tasks;
 
 namespace ASP.NET_API.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/v1/usuario")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        /// <sumary>
+        private readonly ILogger<UsuarioController> _logger;
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IAuthenticationService _authenticationService;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="usuarioRepository"></param>
+        /// <param name="authenticationService"></param>
+        public UsuarioController(ILogger<UsuarioController> logger,
+            IUsuarioRepository usuarioRepository,             
+            IAuthenticationService authenticationService)
+        {
+            _logger = logger;
+            _usuarioRepository = usuarioRepository;
+            _authenticationService = authenticationService;
+        }
+        /// <summary>
         /// Este serviço permite autenticar um usuário cadastrado e ativo.
-        /// </sumary>
-        /// <param name="loginViewModelInput">View Model do Login</param>
-        /// <returns>retorna Status okm dados do usuário e o token em caso de sucesso</returns>
-        
-        
-        [SwaggerResponse(statusCode: 200, description:"Sucesso ao Autenticar", Type = typeof(LoginViewModelInput))]
-        [SwaggerResponse(statusCode: 400, description:"Campos Obrigatórios", Type = typeof(ValidaCampoViewModelOutput))]
-        [SwaggerResponse(statusCode: 500, description:"Erro Interno", Type = typeof(ErroGenericoViewModel))]
+        /// </summary>
+        /// <param name="loginViewModelInput">View model do login</param>
+        /// <returns>Retorna status ok, dados do usuario e o token em caso de sucesso</returns>
+        [SwaggerResponse(statusCode: 200, description: "Sucesso ao autenticar", Type = typeof(LoginViewModelOutput))]
+        [SwaggerResponse(statusCode: 400, description: "Campos obrigatórios", Type = typeof(ValidaCampoViewModelOutput))]
+        [SwaggerResponse(statusCode: 500, description: "Erro interno", Type = typeof(ErroGenericoViewModel))]
         [HttpPost]
         [Route("logar")]
         [ValidacaoModelStateCustomizado]
-        public IActionResult Logar(LoginViewModelInput loginViewModelInput)
+        public async Task<IActionResult> Logar(LoginViewModelInput loginViewModelInput)
         {
-            // if (!ModelState.IsValid)
-            // {
-            //     return BadRequest(new ValidaCampoViewModelOutput(
-            //         ModelState.SelectMany(sm => sm.Value.Errors).Select(s => s.ErrorMessage)));
-            // }
-            return Ok(loginViewModelInput);
+            try
+            {
+                var usuario = await _usuarioRepository.ObterUsuarioAsync(loginViewModelInput.Login);
+
+                if (usuario == null)
+                {
+                    return BadRequest("Houve um erro ao tentar acessar.");
+                }
+
+                //if (usuario.Senha != loginViewModel.Senha.GerarSenhaCriptografada())
+                //{
+                //    return BadRequest("Houve um erro ao tentar acessar.");
+                //}
+
+                var usuarioViewModelOutput = new UsuarioViewModelOutput()
+                {
+                    Codigo = usuario.Codigo,
+                    Login = loginViewModelInput.Login,
+                    Email = usuario.Email
+                };
+
+                var token = _authenticationService.GerarToken(usuarioViewModelOutput);
+
+                return Ok(new LoginViewModelOutput
+                {
+                    Token = token,
+                    Usuario = usuarioViewModelOutput
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return new StatusCodeResult(500);
+            }
         }
-        
+
+        /// <summary>
+        /// Este serviço permite cadastrar um usuário cadastrado não existente.
+        /// </summary>
+        /// <param name="loginViewModelInput">View model do registro de login</param>
+        [SwaggerResponse(statusCode: 201, description: "Sucesso ao cadastrar", Type = typeof(RegistroViewModelInput))]
+        [SwaggerResponse(statusCode: 400, description: "Campos obrigatórios", Type = typeof(ValidaCampoViewModelOutput))]
+        [SwaggerResponse(statusCode: 500, description: "Erro interno", Type = typeof(ErroGenericoViewModel))]
         [HttpPost]
         [Route("registrar")]
         [ValidacaoModelStateCustomizado]
-        public IActionResult Registrar(RegistroViewModelInput registroViewModelInput)
+        public async Task<IActionResult> Registrar(RegistroViewModelInput loginViewModelInput)
         {
-            
-            return Created("", registroViewModelInput);
+            try
+            { 
+                var usuario = await _usuarioRepository.ObterUsuarioAsync(loginViewModelInput.Login);
+
+                if (usuario != null)
+                {
+                    return BadRequest("Usuário já cadastrado");
+                }
+
+                usuario = new Usuario
+                {
+                    Login = loginViewModelInput.Login,
+                    Senha = loginViewModelInput.Senha,
+                    Email = loginViewModelInput.Email
+                };
+                _usuarioRepository.Adicionar(usuario);
+                _usuarioRepository.Commit();
+
+                return Created("", loginViewModelInput);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return new StatusCodeResult(500);
+            }
         }
     }
 }

@@ -6,14 +6,26 @@ using System.Threading.Tasks;
 
 namespace ASP.NET_API.Models.Usuarios
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RegistroViewModelInput
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Required(ErrorMessage = "Login Obrigatório")]
         public string Login { get; set; }
         
+        /// <summary>
+        /// 
+        /// </summary>
         [Required(ErrorMessage = "E-mail Obrigatório")]
         public string Email { get; set; }
         
+        /// <summary>
+        /// 
+        /// </summary>
         [Required(ErrorMessage = "Senha Obrigatória")]
         public string Senha { get; set; }
     }
