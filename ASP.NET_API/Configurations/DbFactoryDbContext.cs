@@ -23,7 +23,7 @@ namespace ASP.NET_API.Configurations
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<CursoDbContext>();
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-PT1KMTO\\SQLEXPRESS;Initial Catalog=ASP.NET_API;Integrated Security=True");
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             CursoDbContext contexto = new CursoDbContext(optionsBuilder.Options);
             return contexto;
         }
