@@ -1,78 +1,82 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AutoBogus;
+using ASP.NET_API.Models.Usuarios;
+using ASP.NET_API.TESTS.Configurations;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Newtonsoft.Json;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net;
-using ASP.NET_API.Models.Usuarios;
-using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace ASP.NET_API.TESTS.Integrations.Controllers
 {
-    public class UsuarioControllerTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class UsuarioControllerTests : IClassFixture<WebApplicationFactory<Startup>>, IAsyncLifetime
     {
         private readonly WebApplicationFactory<Startup> _factory;
-        private readonly ITestOutputHelper _output;
-        private readonly HttpClient _httpClient;
+        protected readonly ITestLoggerFactory _output;
+        protected readonly HttpClient _httpClient;
+        protected RegistroViewModelInput RegistroViewModelInput;
+        protected LoginViewModelOutput LoginViewModelOutput;
+
         public UsuarioControllerTests(WebApplicationFactory<Startup> factory, ITestOutputHelper output)
         {
             _factory = factory;
-            _output = output;
+            _output = new TestLoggerFactory(output);
             _httpClient = _factory.CreateClient();
         }
-        
-        //WhenGivenThen
-        
+
+        [Fact]
+        public async Task Registrar_InformandoUsuarioESenha_DeveRetornarSucesso()
+        {
+            // Arrange
+            RegistroViewModelInput = new AutoFaker<RegistroViewModelInput>(AutoBogusConfiguration.LOCATE)
+                                            .RuleFor(p => p.Login, faker => faker.Person.UserName)
+                                            .RuleFor(p => p.Email, faker => faker.Person.Email);
+                                                
+            StringContent content = new StringContent(JsonConvert.SerializeObject(RegistroViewModelInput), Encoding.UTF8, "application/json");
+
+            // Act
+            var httpClientRequest = await _httpClient.PostAsync("api/v1/usuario/registrar", content);
+
+            // Assert
+            _output.WriteLine($"{nameof(UsuarioControllerTests)}_{nameof(Registrar_InformandoUsuarioESenha_DeveRetornarSucesso)} = {await httpClientRequest.Content.ReadAsStringAsync()}");
+            Assert.Equal(HttpStatusCode.Created, httpClientRequest.StatusCode);
+        }
+
         [Fact]
         public async Task Logar_InformandoUsuarioESenhaExistentes_DeveRetornarSucesso()
         {
-            // AAA
-            
             // Arrange
             var loginViewModelInput = new LoginViewModelInput
             {
-                Login = "jeferson",
-                Senha = "pass"
+                Login = RegistroViewModelInput.Login,
+                Senha = RegistroViewModelInput.Senha
             };
             StringContent content = new StringContent(JsonConvert.SerializeObject(loginViewModelInput), Encoding.UTF8, "application/json");
-            
-            // Action
+
+            // Act
             var httpClientRequest = await _httpClient.PostAsync("api/v1/usuario/logar", content);
-            var loginViewModelOutput = JsonConvert.DeserializeObject<LoginViewModelOutput>(await httpClientRequest.Content.ReadAsStringAsync());
-            
+
+            LoginViewModelOutput = JsonConvert.DeserializeObject<LoginViewModelOutput>(await httpClientRequest.Content.ReadAsStringAsync());
+
             // Assert
-            Assert.Equal(System.Net.HttpStatusCode.OK, httpClientRequest.StatusCode);
-            Assert.NotNull(loginViewModelOutput.Token);
-            Assert.Equal(loginViewModelInput.Login, loginViewModelOutput.Usuario.Login);
-            _output.WriteLine(loginViewModelOutput.Token);
-        }
-        
-        //WhenGivenThen
-        
-        [Fact]
-        public void Registrar_InformandoUsuarioEmailSenhaExistente_DeveRetornarBadRequest()
-        {
-            // AAA
-            
-            // Arrange
-            var registroViewModelInput = new RegistroViewModelInput
-            {
-                Login = "jeferson",
-                Email = "jefersonpontes@alu.ufc.br",
-                Senha = "pass"
-            };
-            StringContent content = new StringContent(JsonConvert.SerializeObject(registroViewModelInput), Encoding.UTF8, "application/json");
-            
-            // Action
-            var httpClientRequest = _httpClient.PostAsync("api/v1/usuario/registrar", content).GetAwaiter().GetResult();
-            
-            // Assert
-            Assert.Equal(System.Net.HttpStatusCode.BadRequest, httpClientRequest.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, httpClientRequest.StatusCode);
+            Assert.NotNull(LoginViewModelOutput.Token);
+            Assert.Equal(loginViewModelInput.Login, LoginViewModelOutput.Usuario.Login);
+            _output.WriteLine($"{nameof(UsuarioControllerTests)}_{nameof(Logar_InformandoUsuarioESenhaExistentes_DeveRetornarSucesso)} = {await httpClientRequest.Content.ReadAsStringAsync()}");
         }
 
+        public async Task InitializeAsync()
+        {
+            await Registrar_InformandoUsuarioESenha_DeveRetornarSucesso();
+            await Logar_InformandoUsuarioESenhaExistentes_DeveRetornarSucesso();
+        }
+
+        public async Task DisposeAsync()
+        {
+            _httpClient.Dispose();
+        }
     }
 }

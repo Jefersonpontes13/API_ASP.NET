@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "4VtcFNacxkuVO/Xi2pljOvFs+u7yVgGCVzp24+f5m+6ruN5f8CnDrtOiP2hngufXomhOKOdOIbd4KrrXQbeTOQ==",
+  "dgSpecHash": "4RVKogC94Ku5XjHrlG37uaxV4IMgpPYe+xWzx1nwvOxXdfjn+SqEWBIXHWWD3nT3XUmv7HNzJfLb7vVIB5KKxg==",
   "success": true,
   "projectFilePath": "C:\\Users\\jeffe\\RiderProjects\\ASP.NET_API\\tests\\ASP.NET_API.TESTS\\ASP.NET_API.TESTS.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jeffe\\.nuget\\packages\\autobogus\\2.13.0\\autobogus.2.13.0.nupkg.sha512",
+    "C:\\Users\\jeffe\\.nuget\\packages\\bogus\\31.0.3\\bogus.31.0.3.nupkg.sha512",
     "C:\\Users\\jeffe\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
     "C:\\Users\\jeffe\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\jeffe\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
@@ -114,6 +116,7 @@
     "C:\\Users\\jeffe\\.nuget\\packages\\system.componentmodel.typeconverter\\4.3.0\\system.componentmodel.typeconverter.4.3.0.nupkg.sha512",
     "C:\\Users\\jeffe\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
     "C:\\Users\\jeffe\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
+    "C:\\Users\\jeffe\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
     "C:\\Users\\jeffe\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\jeffe\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
     "C:\\Users\\jeffe\\.nuget\\packages\\system.diagnostics.eventlog\\5.0.0\\system.diagnostics.eventlog.5.0.0.nupkg.sha512",

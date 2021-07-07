@@ -34,6 +34,7 @@
       "ASP.NET_API.TESTS/1.0.0": {
         "dependencies": {
           "ASP.NET_API": "1.0.0",
+          "AutoBogus": "2.13.0",
           "Microsoft.AspNetCore.Mvc.Testing": "5.0.7",
           "Microsoft.NET.Test.Sdk": "16.9.4",
           "System.Net.Http": "4.3.4",
@@ -185,7 +186,7 @@
           "System.Console.Reference": "5.0.0.0",
           "System.Core": "4.0.0.0",
           "System.Data.Common": "5.0.0.0",
-          "System.Data.DataSetExtensions": "4.0.0.0",
+          "System.Data.DataSetExtensions.Reference": "4.0.0.0",
           "System.Data": "4.0.0.0",
           "System.Diagnostics.Contracts": "5.0.0.0",
           "System.Diagnostics.Debug.Reference": "5.0.0.0",
@@ -326,6 +327,32 @@
         },
         "compile": {
           "ASP.NET_API.TESTS.dll": {}
+        }
+      },
+      "AutoBogus/2.13.0": {
+        "dependencies": {
+          "Bogus": "31.0.3",
+          "System.Data.DataSetExtensions": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoBogus.dll": {
+            "assemblyVersion": "2.13.0.0",
+            "fileVersion": "2.13.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoBogus.dll": {}
+        }
+      },
+      "Bogus/31.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Bogus.dll": {
+            "assemblyVersion": "31.0.3.0",
+            "fileVersion": "31.0.3.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Bogus.dll": {}
         }
       },
       "coverlet.collector/3.0.2": {},
@@ -1536,6 +1563,7 @@
           "System.Text.Encoding": "4.3.0"
         }
       },
+      "System.Data.DataSetExtensions/4.5.0": {},
       "System.Diagnostics.Debug/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
@@ -3249,7 +3277,7 @@
         },
         "compileOnly": true
       },
-      "System.Data.DataSetExtensions/4.0.0.0": {
+      "System.Data.DataSetExtensions.Reference/4.0.0.0": {
         "compile": {
           "System.Data.DataSetExtensions.dll": {}
         },
@@ -4067,6 +4095,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AutoBogus/2.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/lrW8vkG/FVP+Jrluy7mRyd0UP4fKwF3WP52aYwRbOgUmlt4EZNwgouNYPAObN/REjnEy9BJWzddU6UOIU69qQ==",
+      "path": "autobogus/2.13.0",
+      "hashPath": "autobogus.2.13.0.nupkg.sha512"
+    },
+    "Bogus/31.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CMVbZndfEihsd7A5GgdfMQTNiUzjTTng2IPoTe4J2cyxUaEqCW5M5HO8uGF/Qkq1NL219AbLHX+4dx9MxWDSiA==",
+      "path": "bogus/31.0.3",
+      "hashPath": "bogus.31.0.3.nupkg.sha512"
+    },
     "coverlet.collector/3.0.2": {
       "type": "package",
       "serviceable": true,
@@ -4836,6 +4878,13 @@
       "sha512": "sha512-DHDrIxiqk1h03m6khKWV2X8p/uvN79rgSqpilL6uzpmSfxfU5ng8VcPtW4qsDsQDHiTv6IPV9TmD5M/vElPNLg==",
       "path": "system.console/4.3.0",
       "hashPath": "system.console.4.3.0.nupkg.sha512"
+    },
+    "System.Data.DataSetExtensions/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-221clPs1445HkTBZPL+K9sDBdJRB8UN8rgjO3ztB0CQ26z//fmJXtlsr6whGatscsKGBrhJl5bwJuKSA8mwFOw==",
+      "path": "system.data.datasetextensions/4.5.0",
+      "hashPath": "system.data.datasetextensions.4.5.0.nupkg.sha512"
     },
     "System.Diagnostics.Debug/4.3.0": {
       "type": "package",
@@ -6134,7 +6183,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Data.DataSetExtensions/4.0.0.0": {
+    "System.Data.DataSetExtensions.Reference/4.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

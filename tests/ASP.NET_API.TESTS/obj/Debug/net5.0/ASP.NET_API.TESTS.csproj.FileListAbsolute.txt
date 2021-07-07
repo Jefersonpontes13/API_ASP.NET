@@ -427,3 +427,5 @@ C:\Users\jeffe\RiderProjects\ASP.NET_API\tests\ASP.NET_API.TESTS\bin\Debug\net5.
 C:\Users\jeffe\RiderProjects\ASP.NET_API\tests\ASP.NET_API.TESTS\bin\Debug\net5.0\ASP.NET_API.dll
 C:\Users\jeffe\RiderProjects\ASP.NET_API\tests\ASP.NET_API.TESTS\bin\Debug\net5.0\ASP.NET_API.pdb
 C:\Users\jeffe\RiderProjects\ASP.NET_API\tests\ASP.NET_API.TESTS\bin\Debug\net5.0\ASP.NET_API.xml
+C:\Users\jeffe\RiderProjects\ASP.NET_API\tests\ASP.NET_API.TESTS\bin\Debug\net5.0\AutoBogus.dll
+C:\Users\jeffe\RiderProjects\ASP.NET_API\tests\ASP.NET_API.TESTS\bin\Debug\net5.0\Bogus.dll
