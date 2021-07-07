@@ -4,6 +4,7 @@
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
     <ActiveDebugProfile>ASP.NET_API</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\jeffe\RiderProjects\ASP.NET_API\ASP.NET_API\Properties\PublishProfiles\CURSO-DIO-API-REST-99 - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

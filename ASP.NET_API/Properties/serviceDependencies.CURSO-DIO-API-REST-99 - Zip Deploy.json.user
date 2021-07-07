@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "restored": true,
+      "restoreTime": "2021-07-06T19:29:16.291384Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2021-07-06T19:26:42.1454616Z"
+    }
+  },
+  "parameters": {
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "fc69ffee-7325-41bf-b740-b94a9fc9e4e5"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "Cursos"
+    }
+  }
+}
